@@ -19,3 +19,5 @@ resource "google_compute_subnetwork" "webapp_subnet" {
   network       = google_compute_network.my_vpc.self_link
   region        = var.region
 }
+
+
