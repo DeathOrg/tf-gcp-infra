@@ -1,6 +1,5 @@
-# Provider configuration
 provider "google" {
-  project     = "tf-gcp-infra-27"
+  project     = var.project_id
   credentials = file("credentials.json")
-  region      = "us-east1"
+  region      = var.region
 }

@@ -40,4 +40,5 @@ terraform.rc
 .DS_Store
 
 terraform/credentials.json
+terraform/variables.tfvars
 
