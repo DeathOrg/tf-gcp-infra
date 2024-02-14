@@ -17,6 +17,8 @@
 - Service Management API
 - Service Usage API
 
+- Compute Engine API
+
 ## Networking Setup
 
 ### Virtual Private Cloud (VPC)
@@ -38,6 +40,6 @@
 ### Routes
 - **Webapp Route**:
   - **Destination**: 0.0.0.0/0
-  - **Next Hop**: Internet Gateway
+  - **Next Hop Ip**: webapp-subnet Ip
   - **Priority**: 1000
   - **Tags**: webapp
