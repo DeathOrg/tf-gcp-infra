@@ -6,8 +6,8 @@ variable "region" {
   type = string
 }
 
-variable "vpc_name" {
-  type = string
+variable "vpc_names" {
+  type    = list(string)
 }
 
 variable "webapp_subnet_name" {
