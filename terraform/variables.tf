@@ -10,6 +10,10 @@ variable "vpc_names" {
   type    = list(string)
 }
 
+variable "subnet_region" {
+  type = string
+}
+
 variable "webapp_subnet_name" {
   type = string
 }
