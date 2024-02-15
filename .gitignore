@@ -42,3 +42,6 @@ terraform.rc
 terraform/credentials.json
 terraform/variables.tfvars
 
+#for terraform lock file
+terraform.lock.hc
+
