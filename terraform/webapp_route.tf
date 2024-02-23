@@ -6,5 +6,4 @@ resource "google_compute_route" "webapp_route" {
   dest_range        = var.webapp_route_dest_range
   next_hop_gateway  = var.next_hop_gateway[count.index]
   priority          = var.route_priority[count.index]
-  tags              = ["${var.vpc_names[count.index]}-${var.webapp_subnet_name}"]
 }
