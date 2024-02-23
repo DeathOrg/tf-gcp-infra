@@ -83,9 +83,19 @@ variable "http_port" {
   description = "Port number that the http listens to."
 }
 
-variable "firewall_name" {
+variable "ssh_port" {
+  type        = number
+  description = "Port number that the http listens to."
+}
+
+variable "allow_firewall_name" {
   type        = string
-  description = "Name of the firewall"
+  description = "Name of the allow firewall"
+}
+
+variable "deny_firewall_name" {
+  type        = string
+  description = "Name of the deny firewall"
 }
 
 variable "protocol" {
@@ -122,7 +132,7 @@ variable "allowed_ips" {
   description = "List of allowed of ips in firewall."
 }
 
-variable "instance_traffic_tag" {
+variable "compute_instance_tag" {
   type        = string
-  description = "instance_traffic_tag"
+  description = "tag for compute instance"
 }

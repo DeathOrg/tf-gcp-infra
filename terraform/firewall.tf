@@ -1,24 +1,24 @@
 # Create firewall rule
 resource "google_compute_firewall" "webapp_firewall" {
   count   = length(var.vpc_names)
-  name    = var.firewall_name
+  name    = var.allow_firewall_name
   network = google_compute_network.my_vpc[count.index].self_link
   allow {
     protocol = var.protocol
     ports    = [var.application_port]
   }
-  target_tags   = ["my-vm-instance"]
+  target_tags   = [var.compute_instance_tag]
   source_ranges = var.allowed_ips
 }
 
 resource "google_compute_firewall" "deny_ssh_firewall" {
   count   = length(var.vpc_names)
-  name    = "deny-ssh-traffic"
+  name    = var.deny_firewall_name
   network = google_compute_network.my_vpc[count.index].self_link
   deny {
-    protocol = "tcp"
-    ports    = ["22"]
+    protocol = var.protocol
+    ports    = [var.ssh_port]
   }
   source_ranges = var.allowed_ips
-  target_tags = ["my-vm-instance"]
+  target_tags = [var.compute_instance_tag]
 }

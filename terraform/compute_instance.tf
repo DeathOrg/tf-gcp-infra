@@ -4,7 +4,7 @@ resource "google_compute_instance" "webapp_instance" {
   name         = "${var.vpc_names[count.index]}-webapp-instance"
   machine_type = var.machine_type
   zone         = var.zone[count.index]
-  tags         = ["my-vm-instance"]
+  tags         = [var.compute_instance_tag]
   boot_disk {
     initialize_params {
       image = var.boot_disk_image
