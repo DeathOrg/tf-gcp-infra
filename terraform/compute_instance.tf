@@ -4,13 +4,14 @@ resource "google_compute_instance" "webapp_instance" {
   name         = "${var.vpc_names[count.index]}-webapp-instance"
   machine_type = var.machine_type
   zone         = var.zone[count.index]
-  tags         = [var.instance_traffic_tag, "${var.vpc_names[count.index]}", var.webapp_subnet_name]
+  tags         = ["my-vm-instance"]
   boot_disk {
     initialize_params {
       image = var.boot_disk_image
       type  = var.boot_disk_type
       size  = var.boot_disk_size_gb
     }
+    auto_delete = true
   }
 
   network_interface {
