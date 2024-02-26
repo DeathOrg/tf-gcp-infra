@@ -13,9 +13,9 @@ resource "google_sql_database_instance" "webapp_db_instance" {
     disk_type = var.db_instance_disk_type
     disk_size = var.db_instance_disk_size
     ip_configuration {
-      ipv4_enabled                                  = var.db_instance_ipv4_enabled
-      private_network                               = google_compute_network.my_vpc.id
-    #   enable_private_path_for_google_cloud_services = var.db_instance_enable_private_path
+      ipv4_enabled    = var.db_instance_ipv4_enabled
+      private_network = google_compute_network.my_vpc.id
+      #   enable_private_path_for_google_cloud_services = var.db_instance_enable_private_path
     }
     availability_type = var.db_instance_availability_type
     backup_configuration {
