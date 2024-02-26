@@ -14,7 +14,7 @@ resource "google_compute_instance" "webapp_instance" {
   }
 
   network_interface {
-    network = google_compute_network.my_vpc.self_link
+    network    = google_compute_network.my_vpc.self_link
     subnetwork = google_compute_subnetwork.webapp_subnet.self_link
     access_config {}
   }
@@ -29,5 +29,5 @@ resource "google_compute_instance" "webapp_instance" {
   touch /home/csye6225/cloud/workdone
   EOF
 
-  depends_on = [ google_sql_database.webapp_database, google_sql_user.db_user ]
+  depends_on = [google_sql_database.webapp_database, google_sql_user.db_user]
 }
