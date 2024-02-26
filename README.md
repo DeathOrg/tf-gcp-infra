@@ -91,6 +91,8 @@ Follow these steps to set up the infrastructure using Terraform:
 - Service Management API
 - Service Usage API
 - Compute Engine API
+- Cloud SQL Admin API
+- Service Networking API
 
 ## Networking Setup
 
