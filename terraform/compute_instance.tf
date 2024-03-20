@@ -22,12 +22,23 @@ resource "google_compute_instance" "webapp_instance" {
   # Use a startup script to set environment variable using the private IP address
   metadata_startup_script = <<EOF
   #!/bin/bash
-  echo "DATABASE_HOST=${google_sql_database_instance.webapp_db_instance.private_ip_address}" >> /home/csye6225/cloud/webapp/config/.env
-  echo "DATABASE_USER=${google_sql_user.db_user.name}" >> /home/csye6225/cloud/webapp/config/.env
-  echo "DATABASE_PASSWORD=${google_sql_user.db_user.password}" >> /home/csye6225/cloud/webapp/config/.env
-  /home/csye6225/cloud/webapp/setup.sh /home/csye6225/cloud/webapp
+  echo "DATABASE_HOST=${google_sql_database_instance.webapp_db_instance.private_ip_address}" >> ${var.app_base_path}/config/.env
+  echo "DATABASE_USER=${google_sql_user.db_user.name}" >> ${var.app_base_path}/config/.env
+  echo "DATABASE_PASSWORD=${google_sql_user.db_user.password}" >> ${var.app_base_path}/config/.env
+  ${var.app_base_path}/setup.sh ${var.app_base_path}
+  rm -rf /var/log/myapp/app.log
+  rm -rf ${var.app_base_path}/LICENSE ${var.app_base_path}/packer/ ${var.app_base_path}/README.md ${var.app_base_path}/requirements/ ${var.app_base_path}/.gitignore
   touch /home/csye6225/cloud/workdone
   EOF
 
-  depends_on = [google_sql_database.webapp_database, google_sql_user.db_user]
+  allow_stopping_for_update = true
+
+  service_account {
+    # Google recommends custom service accounts that have cloud-platform scope and permissions granted via IAM Roles.
+    email  = google_service_account.my_sa.email
+    # scopes = ["cloud-platform"]
+    scopes = ["logging-write", "monitoring-write"]
+  }
+
+  depends_on = [google_sql_database.webapp_database, google_sql_user.db_user, google_service_account.my_sa]
 }
