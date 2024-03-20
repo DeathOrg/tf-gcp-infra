@@ -257,7 +257,7 @@ variable "db_instance_ipv4_enabled" {
 
 variable "my_domain" {
   type    = string
-  default = "sourabhk.com"
+  default = "sourabhk.com."
 }
 
 variable "dns_record_A" {
