@@ -254,3 +254,49 @@ variable "db_instance_ipv4_enabled" {
   type    = bool
   default = false
 }
+
+variable "my_domain" {
+  type    = string
+  default = "sourabhk.com"
+}
+
+variable "dns_record_A" {
+  type    = string
+  default = "A"
+}
+
+variable "webserver_managed_zone" {
+  type    = string
+  default = "webapp-zone"
+}
+
+variable "webser_dns_ttl" {
+  type    = number
+  default = 300
+}
+
+variable "service_account_id" {
+  type    = string
+  default = "my-vm-sa"
+}
+
+variable "service_account_display_name" {
+  type    = string
+  default = "My VM-SA"
+}
+
+variable "roles_logging_admin" {
+  type    = string
+  default = "roles/logging.admin"
+}
+
+variable "roles_monitoring_writer" {
+  type    = string
+  default = "roles/monitoring.metricWriter"
+}
+
+# Base path variable
+variable "app_base_path" {
+  description = "Base path for the application"
+  default     = "/home/csye6225/cloud/webapp"
+}
