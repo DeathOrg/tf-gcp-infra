@@ -34,9 +34,7 @@ resource "google_compute_instance" "webapp_instance" {
   allow_stopping_for_update = true
 
   service_account {
-    # Google recommends custom service accounts that have cloud-platform scope and permissions granted via IAM Roles.
     email  = google_service_account.my_sa.email
-    # scopes = ["cloud-platform"]
     scopes = ["logging-write", "monitoring-write"]
   }
 
