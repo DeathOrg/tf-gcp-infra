@@ -14,3 +14,9 @@ resource "google_project_iam_binding" "monitoring_writer" {
   role    = var.roles_monitoring_writer
   members = ["serviceAccount:${google_service_account.my_sa.email}"]
 }
+
+resource "google_project_iam_binding" "pubsub_publisher_binding" {
+  project = var.project_id
+  role    = var.roles_pubsub_publisher
+  members = ["serviceAccount:${google_service_account.my_sa.email}"]
+}

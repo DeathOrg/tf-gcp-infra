@@ -86,8 +86,20 @@ variable "http_port" {
 
 variable "ssh_port" {
   type        = number
-  description = "Port number that the http listens to."
+  description = "Port number that the ssh listens to."
   default     = 22
+}
+
+variable "https_port" {
+  type        = number
+  description = "Port number that the https listens to."
+  default     = 443
+}
+
+variable "mysql_port" {
+  type        = number
+  description = "Port number that the https listens to."
+  default     = 3306
 }
 
 variable "allow_firewall_name" {
@@ -204,6 +216,10 @@ variable "db_user_name" {
   default = "dev-1"
 }
 
+variable "db_password" {
+  type = string
+}
+
 variable "generated_password_length" {
   type    = number
   default = 16
@@ -237,7 +253,7 @@ variable "private_ip_alloc_address_type" {
 
 variable "private_ip_alloc_prefix_length" {
   type    = number
-  default = 16
+  default = 10
 }
 
 variable "service_networking_service" {
@@ -289,6 +305,10 @@ variable "roles_logging_admin" {
   type    = string
   default = "roles/logging.admin"
 }
+variable "roles_pubsub_publisher" {
+  type    = string
+  default = "roles/pubsub.publisher"
+}
 
 variable "roles_monitoring_writer" {
   type    = string
@@ -300,3 +320,132 @@ variable "app_base_path" {
   description = "Base path for the application"
   default     = "/home/csye6225/cloud/webapp"
 }
+
+variable "mailgun_domain" {
+  type = string
+}
+
+variable "mailgun_api_key" {
+  type = string
+}
+
+variable "cloud_func_code_path" {
+  type = string
+}
+variable "pubsub_topic_name" {
+  type = string
+}
+
+variable "pubsub_subscription_name" {
+  type = string
+}
+
+variable "webapp_firewall_allow_ports" {
+  type = list(number)
+}
+
+
+variable "cf_name" {
+  type    = string
+  default = "send-verification-email"
+}
+variable "cf_location" {
+  type    = string
+  default = "us-central1"
+}
+variable "cf_description" {
+  type    = string
+  default = "Sends verification emails to users"
+}
+
+variable "cf_build_config_runtime" {
+  type    = string
+  default = "python39"
+}
+
+
+variable "cf_build_config_entry_point" {
+  type    = string
+  default = "send_verification_email"
+}
+
+variable "cf_ingress_setting" {
+  type    = string
+  default = "ALLOW_INTERNAL_ONLY"
+}
+
+variable "cf_trigger_region" {
+  type = string
+}
+variable "cf_event_trigger_type" {
+  type    = string
+  default = "google.cloud.pubsub.topic.v1.messagePublished"
+}
+
+variable "cf_event_trigger_retry_policy" {
+  type    = string
+  default = "RETRY_POLICY_RETRY"
+}
+
+variable "cf_service_config_timeout" {
+  type    = number
+  default = 60
+}
+
+variable "cf_service_config_max_instance_count" {
+  type    = number
+  default = 3
+}
+
+variable "cf_service_config_min_instance_count" {
+  type    = number
+  default = 1
+}
+
+variable "cf_service_config_available_memory" {
+  type    = string
+  default = "128M"
+}
+
+
+variable "vpc_connector_max_instance_count" {
+  type    = number
+  default = 3
+}
+
+variable "vpc_connector_min_instance_count" {
+  type    = number
+  default = 2
+}
+
+variable "vpc_connector_cidr_range" {
+  type    = string
+  default = "10.0.2.0/28"
+}
+
+variable "vpc_connector_name" {
+  type    = string
+  default = "vpc-con"
+}
+
+
+variable "storage_bucket_name" {
+  type    = string
+  default = "verification-email-function-bucket"
+}
+
+
+
+variable "storage_bucket_location" {
+  type    = string
+  default = "US"
+}
+
+
+
+variable "storage_bucket_object_name" {
+  type    = string
+  default = "index.zip"
+}
+
+

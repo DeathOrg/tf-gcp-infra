@@ -25,6 +25,8 @@ resource "google_compute_instance" "webapp_instance" {
   echo "DATABASE_HOST=${google_sql_database_instance.webapp_db_instance.private_ip_address}" >> ${var.app_base_path}/config/.env
   echo "DATABASE_USER=${google_sql_user.db_user.name}" >> ${var.app_base_path}/config/.env
   echo "DATABASE_PASSWORD=${google_sql_user.db_user.password}" >> ${var.app_base_path}/config/.env
+  echo "PROJECT_ID=${var.project_id}" >> ${var.app_base_path}/config/.env
+  echo "DOMAIN_NAME=${var.mailgun_domain}" >> ${var.app_base_path}/config/.env
   ${var.app_base_path}/setup.sh ${var.app_base_path}
   rm -rf /var/log/myapp/app.log
   rm -rf ${var.app_base_path}/LICENSE ${var.app_base_path}/packer/ ${var.app_base_path}/README.md ${var.app_base_path}/requirements/ ${var.app_base_path}/.gitignore
@@ -35,7 +37,7 @@ resource "google_compute_instance" "webapp_instance" {
 
   service_account {
     email  = google_service_account.my_sa.email
-    scopes = ["logging-write", "monitoring-write"]
+    scopes = ["logging-write", "monitoring-write", "pubsub"]
   }
 
   depends_on = [google_sql_database.webapp_database, google_sql_user.db_user, google_service_account.my_sa]
