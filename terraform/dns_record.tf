@@ -1,7 +1,7 @@
 resource "google_dns_record_set" "web_server" {
   name = var.my_domain
   type = var.dns_record_A
-  ttl  = 300
+  ttl  = var.webser_dns_ttl
 
   managed_zone = var.webserver_managed_zone
 
