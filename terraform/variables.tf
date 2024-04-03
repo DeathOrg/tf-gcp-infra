@@ -448,4 +448,272 @@ variable "storage_bucket_object_name" {
   default = "index.zip"
 }
 
+variable "computer_instance_service_account_scopes" {
+  type    = list(string)
+  default = ["logging-write", "monitoring-write", "pubsub"]
+}
 
+# for autoscaler
+variable "autoscaler_name" {
+  type    = string
+  default = "webapp-autoscaler"
+}
+
+variable "min_replicas" {
+  type        = number
+  description = "Minimum number of replicas in the instance group"
+  default     = 1
+}
+
+variable "max_replicas" {
+  type        = number
+  description = "Maximum number of replicas allowed in the instance group"
+  default     = 4
+}
+
+variable "cooldown_period" {
+  type        = number
+  description = "Cooldown period in seconds after scaling actions (up or down)"
+  default     = 60
+}
+
+variable "cpu_utilization_target" {
+  type        = number
+  description = "Target CPU utilization for autoscaling (0.0 to 1.0)"
+  default     = 0.75
+}
+
+
+# for health_check
+
+variable "health_check_name" {
+  type        = string
+  description = "Name of the health check"
+  default     = "webapp-health-check"
+}
+
+variable "health_check_description" {
+  type        = string
+  description = "Description of the health check"
+  default     = "Health check of webapp service"
+}
+
+variable "timeout_sec" {
+  type        = number
+  description = "Timeout in seconds for the health check probe"
+  default     = 1
+}
+
+variable "check_interval_sec" {
+  type        = number
+  description = "Interval in seconds between health checks"
+  default     = 1
+}
+
+variable "healthy_threshold" {
+  type        = number
+  description = "Number of successful checks to mark an instance healthy"
+  default     = 5
+}
+
+variable "unhealthy_threshold" {
+  type        = number
+  description = "Number of failed checks to mark an instance unhealthy"
+  default     = 5
+}
+
+variable "health_check_port" {
+  type        = number
+  description = "Port on which the health check is performed"
+  default     = 8000
+}
+
+variable "health_check_request_path" {
+  type        = string
+  description = "Path for the health check request (e.g., /healthz)"
+  default     = "/healthz"
+}
+
+# for instance template
+
+variable "template_name" {
+  type        = string
+  description = "Name of the instance template"
+  default     = "appserver-template"
+}
+
+variable "template_description" {
+  type        = string
+  description = "Description of the instance template"
+  default     = "This template is used to create app server instances."
+}
+
+variable "instance_description" {
+  type        = string
+  description = "Description assigned to instances created from the template"
+  default     = "description assigned to instances"
+}
+
+
+# for firewall
+
+variable "firewall_allow_name" {
+  type        = string
+  description = "Name for the firewall rule allowing health checks and load balancer"
+  default     = "allow-health-checks-and-lb"
+}
+
+variable "firewall_allow_priority" {
+  type        = number
+  description = "Priority for the allow rule (lower values are evaluated first)"
+  default     = 500
+}
+
+variable "firewall_protocol" {
+  type        = string
+  description = "Network protocol allowed by the rule (e.g., tcp, udp)"
+  default     = "tcp"
+}
+
+variable "firewall_deny_name" {
+  type        = string
+  description = "Name for the firewall rule denying all inbound traffic"
+  default     = "deny-all-inbound"
+}
+
+variable "firewall_deny_priority" {
+  type        = number
+  description = "Priority for the deny rule (lower values are evaluated first)"
+  default     = 900
+}
+
+
+# for mig
+
+variable "instance_group_manager_name" {
+  type        = string
+  description = "Name for the instance group manager"
+  default     = "appserver-igm"
+}
+
+variable "instance_group_zone" {
+  type        = string
+  description = "Zone where the instances will be deployed"
+  default     = "us-central1-a"
+}
+
+variable "base_instance_name" {
+  type    = string
+  default = "webapp"
+}
+
+variable "named_port_name" {
+  type    = string
+  default = "my-app-port"
+}
+
+
+# for loadbalancer
+variable "lb_address_name" {
+  type        = string
+  description = "Name for the global address used by the load balancer"
+  default     = "l7-xlb-static-ip-address"
+}
+
+variable "lb_forwarding_rule_name" {
+  type        = string
+  description = "Name for the HTTPS forwarding rule"
+  default     = "l7-xlb-forwarding-rule"
+}
+
+variable "lb_port_range" {
+  type        = string
+  description = "Port range for the forwarding rule (e.g., 443)"
+  default     = "443"
+}
+
+variable "lb_https_proxy_name" {
+  type        = string
+  description = "Name for the target HTTPS proxy"
+  default     = "gct-https-proxy"
+}
+
+variable "ssl_cert_name" {
+  type        = string
+  description = "Name for the managed SSL certificate"
+  default     = "test-cert-2"
+}
+
+variable "ssl_cert_domains" {
+  type        = list(string)
+  description = "List of domains for the SSL certificate"
+  default     = ["sourabhk.com"]
+}
+variable "lb_url_map_name" {
+  type        = string
+  description = "Name for the URL map"
+  default     = "l7-xlb-url-map"
+}
+
+variable "lb_url_map_hosts" {
+  type        = list(string)
+  description = "List of hostnames for the URL map"
+  default     = ["sourabhk.com"]
+}
+
+variable "lb_url_map_path_matcher" {
+  type    = string
+  default = "sourabhk"
+}
+
+# Backend service
+variable "lb_backend_service_name" {
+  type        = string
+  description = "Name for the backend service"
+  default     = "l7-xlb-backend-service"
+}
+
+# Backend service configuration
+variable "lb_backend_service_protocol" {
+  type        = string
+  description = "Protocol used by the backend service (e.g., HTTP, HTTPS)"
+  default     = "HTTP"
+}
+
+variable "lb_backend_service_timeout_sec" {
+  type        = number
+  description = "Backend service timeout in seconds"
+  default     = 300
+}
+
+variable "lb_backend_service_enable_cdn" {
+  type        = bool
+  description = "Enable Cloud CDN for the backend service"
+  default     = false
+}
+variable "lb_backend_service_log_config_enable" {
+  type    = bool
+  default = true
+}
+variable "lb_backend_service_log_config_sample_rate" {
+  type    = number
+  default = 1
+}
+variable "lb_backend_service_balancing_mode" {
+  type    = string
+  default = "UTILIZATION"
+}
+variable "lb_backend_service_capacity_scaler" {
+  type    = number
+  default = 1.0
+}
+
+variable "lb_backend_service_load_balancing_scheme" {
+  type    = string
+  default = "EXTERNAL_MANAGED"
+}
+
+variable "lb_backend_service_locality_lb_policy" {
+  type    = string
+  default = "ROUND_ROBIN"
+}
