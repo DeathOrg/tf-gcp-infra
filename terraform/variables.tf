@@ -462,13 +462,13 @@ variable "autoscaler_name" {
 variable "min_replicas" {
   type        = number
   description = "Minimum number of replicas in the instance group"
-  default     = 1
+  default     = 3
 }
 
 variable "max_replicas" {
   type        = number
   description = "Maximum number of replicas allowed in the instance group"
-  default     = 4
+  default     = 6
 }
 
 variable "cooldown_period" {
@@ -480,7 +480,7 @@ variable "cooldown_period" {
 variable "cpu_utilization_target" {
   type        = number
   description = "Target CPU utilization for autoscaling (0.0 to 1.0)"
-  default     = 0.75
+  default     = 0.50
 }
 
 
@@ -600,6 +600,16 @@ variable "instance_group_zone" {
   type        = string
   description = "Zone where the instances will be deployed"
   default     = "us-central1-a"
+}
+
+variable "mig_region" {
+  type        = string
+  default     = "us-central1"
+}
+
+variable "mig_distribution_policy_zones" {
+  type        = list(string)
+  default     = ["us-central1-a", "us-central1-f"]
 }
 
 variable "base_instance_name" {
