@@ -1,4 +1,4 @@
-resource "google_compute_instance_template" "webapp_template" {
+resource "google_compute_region_instance_template" "webapp_template" {
   name        = var.template_name
   description = var.template_description
   region       = var.region

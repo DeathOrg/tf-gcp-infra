@@ -35,7 +35,6 @@ resource "google_compute_managed_ssl_certificate" "default" {
   lifecycle {
     create_before_destroy = true
   }
-
   managed {
     domains = var.ssl_cert_domains
   }
@@ -96,7 +95,7 @@ resource "google_compute_backend_service" "default" {
 
   health_checks = [google_compute_health_check.webapp_health_check.id]
   backend {
-    group           = google_compute_instance_group_manager.webapp_mig.instance_group
+    group           = google_compute_region_instance_group_manager.webapp_mig.instance_group
     balancing_mode  = var.lb_backend_service_balancing_mode
     capacity_scaler = var.lb_backend_service_capacity_scaler
   }

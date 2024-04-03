@@ -5,6 +5,7 @@ resource "google_dns_record_set" "dns" {
   ttl          = var.webser_dns_ttl
   managed_zone = var.webserver_managed_zone
   rrdatas      = [google_compute_global_address.default.address]
+  depends_on   = [google_compute_global_address.default]
 }
 
 # resource "google_dns_record_set" "web_server" {
