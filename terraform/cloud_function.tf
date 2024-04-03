@@ -52,6 +52,7 @@ resource "google_cloudfunctions2_function" "function" {
     all_traffic_on_latest_revision = true
     service_account_email          = google_service_account.my_sa.email
     vpc_connector                  = google_vpc_access_connector.connector.self_link
+    vpc_connector_egress_settings  = "PRIVATE_RANGES_ONLY"
   }
 
   event_trigger {

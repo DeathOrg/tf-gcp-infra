@@ -1,3 +1,4 @@
+/*
 # Create Compute Engine Instance
 resource "google_compute_instance" "webapp_instance" {
   name         = var.webapp_instance_name
@@ -37,8 +38,9 @@ resource "google_compute_instance" "webapp_instance" {
 
   service_account {
     email  = google_service_account.my_sa.email
-    scopes = ["logging-write", "monitoring-write", "pubsub"]
+    scopes = var.computer_instance_service_account_scopes
   }
 
   depends_on = [google_sql_database.webapp_database, google_sql_user.db_user, google_service_account.my_sa]
 }
+*/
