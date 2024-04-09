@@ -7,6 +7,7 @@ resource "google_sql_database_instance" "webapp_db_instance" {
   region              = var.db_instance_region
   database_version    = var.db_instance_database_version
   deletion_protection = var.db_instance_deletion_protection
+  encryption_key_name = google_kms_crypto_key.cloudsql_key.id
 
   settings {
     tier      = var.db_instance_tier
@@ -22,7 +23,7 @@ resource "google_sql_database_instance" "webapp_db_instance" {
       binary_log_enabled = var.db_instance_backup_binary_log_enabled
     }
   }
-
+  
   depends_on = [google_service_networking_connection.default]
 }
 

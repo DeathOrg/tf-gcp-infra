@@ -438,7 +438,7 @@ variable "storage_bucket_name" {
 
 variable "storage_bucket_location" {
   type    = string
-  default = "US"
+  default = "US-CENTRAL1"
 }
 
 
@@ -726,4 +726,11 @@ variable "lb_backend_service_load_balancing_scheme" {
 variable "lb_backend_service_locality_lb_policy" {
   type    = string
   default = "ROUND_ROBIN"
+}
+
+
+
+variable "template_name_suffix_length" {
+  type    = number
+  default = 4
 }
