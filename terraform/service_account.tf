@@ -1,7 +1,7 @@
 resource "google_project_service_identity" "gcp_sa_cloud_sql" {
   project  = var.project_id
   provider = google-beta
-  service  = "sqladmin.googleapis.com"
+  service  = var.cloud_sql_service
 }
 
 resource "google_service_account" "my_sa" {
@@ -29,9 +29,10 @@ resource "google_project_iam_binding" "pubsub_publisher_binding" {
 
 resource "google_project_iam_binding" "cmek_binding" {
   project = var.project_id
-  role    = "roles/cloudkms.cryptoKeyEncrypterDecrypter"
+  role    = var.roles_kms_encrypter_decrypter
   members = [
     "serviceAccount:${google_service_account.my_sa.email}",
-    "serviceAccount:${google_project_service_identity.gcp_sa_cloud_sql.email}"
+    "serviceAccount:${google_project_service_identity.gcp_sa_cloud_sql.email}",
+    "serviceAccount:service-${var.project_number}@gs-project-accounts.iam.gserviceaccount.com",
   ]
 }

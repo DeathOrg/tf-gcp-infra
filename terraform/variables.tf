@@ -3,6 +3,11 @@ variable "project_id" {
   description = "The ID of the Google Cloud project."
 }
 
+variable "project_number" {
+  type        = string
+  description = "The project number of the Google Cloud project."
+}
+
 variable "region" {
   type        = string
   description = "The region where resources will be deployed."
@@ -315,6 +320,11 @@ variable "roles_monitoring_writer" {
   default = "roles/monitoring.metricWriter"
 }
 
+variable "roles_kms_encrypter_decrypter" {
+  type    = string
+  default = "roles/cloudkms.cryptoKeyEncrypterDecrypter"
+}
+
 # Base path variable
 variable "app_base_path" {
   description = "Base path for the application"
@@ -603,13 +613,13 @@ variable "instance_group_zone" {
 }
 
 variable "mig_region" {
-  type        = string
-  default     = "us-central1"
+  type    = string
+  default = "us-central1"
 }
 
 variable "mig_distribution_policy_zones" {
-  type        = list(string)
-  default     = ["us-central1-a", "us-central1-f"]
+  type    = list(string)
+  default = ["us-central1-a", "us-central1-f"]
 }
 
 variable "base_instance_name" {
@@ -728,9 +738,46 @@ variable "lb_backend_service_locality_lb_policy" {
   default = "ROUND_ROBIN"
 }
 
-
+variable "key_ring_name_suffix_length" {
+  type    = number
+  default = 4
+}
 
 variable "template_name_suffix_length" {
   type    = number
   default = 4
+}
+
+variable "cloud_sql_service" {
+  type    = string
+  default = "sqladmin.googleapis.com"
+}
+
+variable "key_ring_name" {
+  type    = string
+  default = "key-ring"
+}
+
+variable "key_ring_location" {
+  type    = string
+  default = "us-central1"
+}
+
+variable "key_rotation_period" {
+  type    = string
+  default = "2592000s"
+}
+
+variable "cmek_vm_key_name" {
+  type    = string
+  default = "vm-key"
+}
+
+variable "cmek_cloudsql_key_name" {
+  type    = string
+  default = "cloudsql-key"
+}
+variable "cmek_storage_bucket_key_name" {
+  type    = string
+  default = "storage-bucket-key"
 }

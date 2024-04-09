@@ -12,6 +12,9 @@ resource "google_vpc_access_connector" "connector" {
 resource "google_storage_bucket" "bucket" {
   name     = var.storage_bucket_name
   location = var.storage_bucket_location
+  encryption {
+    default_kms_key_name = google_kms_crypto_key.storage_bucket_key.id
+  }
 }
 
 resource "google_storage_bucket_object" "archive" {
