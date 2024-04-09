@@ -57,7 +57,6 @@ resource "google_compute_region_instance_template" "webapp_template" {
     scopes = var.computer_instance_service_account_scopes
   }
 
-  depends_on = []
 }
 
 resource "random_id" "template_name_suffix" {
