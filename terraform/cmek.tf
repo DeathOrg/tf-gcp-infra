@@ -34,6 +34,7 @@ data "google_iam_policy" "admin" {
   binding {
     role = var.roles_kms_encrypter_decrypter
     members = [
+      "serviceAccount:${google_service_account.my_sa.email}",
       "serviceAccount:service-${var.project_number}@gs-project-accounts.iam.gserviceaccount.com",
     ]
   }
@@ -43,3 +44,19 @@ resource "google_kms_crypto_key_iam_policy" "crypto_key" {
   crypto_key_id = google_kms_crypto_key.storage_bucket_key.id
   policy_data   = data.google_iam_policy.admin.policy_data
 }
+
+# resource "google_kms_crypto_key_iam_binding" "vm_key_bind" {
+#   crypto_key_id = google_kms_crypto_key.vm_key.id
+#   role          = var.roles_kms_encrypter_decrypter
+#   members = [
+#     "serviceAccount:${google_service_account.my_sa.email}",
+#   ]
+# }
+
+# resource "google_kms_crypto_key_iam_binding" "cloudsql_key_bind" {
+#   crypto_key_id = google_kms_crypto_key.cloudsql_key.id
+#   role          = var.roles_kms_encrypter_decrypter
+#   members = [
+#     "serviceAccount:${google_project_service_identity.gcp_sa_cloud_sql.email}",
+#   ]
+# }
