@@ -28,3 +28,18 @@ resource "google_kms_crypto_key" "storage_bucket_key" {
 resource "random_id" "key_ring_name_suffix" {
   byte_length = var.key_ring_name_suffix_length
 }
+
+
+data "google_iam_policy" "admin" {
+  binding {
+    role = var.roles_kms_encrypter_decrypter
+    members = [
+      "serviceAccount:service-${var.project_number}@gs-project-accounts.iam.gserviceaccount.com",
+    ]
+  }
+}
+
+resource "google_kms_crypto_key_iam_policy" "crypto_key" {
+  crypto_key_id = google_kms_crypto_key.storage_bucket_key.id
+  policy_data   = data.google_iam_policy.admin.policy_data
+}
