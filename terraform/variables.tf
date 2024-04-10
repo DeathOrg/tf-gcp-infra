@@ -511,19 +511,19 @@ variable "health_check_description" {
 variable "timeout_sec" {
   type        = number
   description = "Timeout in seconds for the health check probe"
-  default     = 1
+  default     = 30
 }
 
 variable "check_interval_sec" {
   type        = number
   description = "Interval in seconds between health checks"
-  default     = 1
+  default     = 30
 }
 
 variable "healthy_threshold" {
   type        = number
   description = "Number of successful checks to mark an instance healthy"
-  default     = 5
+  default     = 3
 }
 
 variable "unhealthy_threshold" {

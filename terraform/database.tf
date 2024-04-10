@@ -23,7 +23,7 @@ resource "google_sql_database_instance" "webapp_db_instance" {
       binary_log_enabled = var.db_instance_backup_binary_log_enabled
     }
   }
-  
+
   depends_on = [google_service_networking_connection.default]
 }
 

@@ -34,5 +34,6 @@ resource "google_project_iam_binding" "cmek_binding" {
     "serviceAccount:${google_service_account.my_sa.email}",
     "serviceAccount:${google_project_service_identity.gcp_sa_cloud_sql.email}",
     "serviceAccount:service-${var.project_number}@gs-project-accounts.iam.gserviceaccount.com",
+    # "serviceAccount:cloud-storage-admin@${var.project_number}.iam.gserviceaccount.com"
   ]
 }

@@ -8,7 +8,7 @@ resource "google_compute_health_check" "webapp_health_check" {
   unhealthy_threshold = var.unhealthy_threshold
 
   http_health_check {
-    port = var.health_check_port
+    port         = var.health_check_port
     request_path = var.health_check_request_path
   }
 }
