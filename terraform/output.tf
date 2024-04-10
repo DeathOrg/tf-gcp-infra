@@ -4,11 +4,11 @@ output "DATABASE_HOST" {
 }
 
 output "DATABASE_PASSWORD" {
-  value       = google_sql_user.db_user.password
+  value     = google_sql_user.db_user.password
   sensitive = true
   # terraform output -no-color DATABASE_PASSWORD
 }
 
 output "IT_KEY_RING" {
-  value       = google_kms_key_ring.app_keys.name
+  value = google_kms_key_ring.app_keys.name
 }
