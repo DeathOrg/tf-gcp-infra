@@ -19,9 +19,8 @@ resource "google_compute_region_instance_template" "webapp_template" {
     source_image = var.boot_disk_image
     auto_delete  = true
     boot         = true
-    source_image_encryption_key {
+    disk_encryption_key {
       kms_key_self_link       = google_kms_key_ring.app_keys.id
-      kms_key_service_account = google_service_account.my_sa.email
     }
   }
 
